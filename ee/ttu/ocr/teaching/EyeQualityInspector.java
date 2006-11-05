@@ -1,15 +1,10 @@
 package ee.ttu.ocr.teaching;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-
 import ee.ttu.math.MathEx;
 import ee.ttu.ocr.Eye;
+
+import java.awt.image.BufferedImage;
+import java.util.*;
 
 /**
  * This can bu used for statistics or eye algorithm optimization
@@ -33,9 +28,9 @@ public class EyeQualityInspector {
 		Map<Character, List<float[]>> eyeReceptorValues = getEyeReceptorValues(eye, course);
 		float sumUsability = 0;		
 		for(int receptorIndex = 0; receptorIndex < eye.getReceptorsCount(); receptorIndex++) {							
-			float avgInnerEntropy = getReceptorInnerEntropy(eyeReceptorValues, receptorIndex);			
-			float avgOuterEntropy = getReceptorOuterEntropy(eyeReceptorValues, receptorIndex);
-			sumUsability += avgOuterEntropy * (1-avgInnerEntropy);
+			float avgInnerEntropy = getReceptorInnerEntropy(eyeReceptorValues, receptorIndex, eye.getMaxReceptorValue(), eye.getMinReceptorValue());
+			float avgOuterEntropy = getReceptorOuterEntropy(eyeReceptorValues, receptorIndex, eye.getMaxReceptorValue(), eye.getMinReceptorValue());            
+            sumUsability += avgOuterEntropy * (1-avgInnerEntropy);
 		}		
 		return sumUsability/eye.getReceptorsCount();
 	}
@@ -50,17 +45,17 @@ public class EyeQualityInspector {
 	 * @throws OCRTeachingException 
 	 */
 	public static float[] getEyeReceptorUsabilities(Eye eye, OCRTeachingCourse course) throws OCRTeachingException {
-		Map<Character, List<float[]>> eyeReceptorValues = getEyeReceptorValues(eye, course);
-		float[] result = new float[eye.getReceptorsCount()]; 
+		Map<Character, List<float[]>> eyeReceptorValues = getEyeReceptorValues(eye, course);        
+        float[] result = new float[eye.getReceptorsCount()];
 		for(int receptorIndex = 0; receptorIndex < eye.getReceptorsCount(); receptorIndex++) {							
-			float avgInnerEntropy = getReceptorInnerEntropy(eyeReceptorValues, receptorIndex);			
-			float avgOuterEntropy = getReceptorOuterEntropy(eyeReceptorValues, receptorIndex);
+			float avgInnerEntropy = getReceptorInnerEntropy(eyeReceptorValues, receptorIndex, eye.getMaxReceptorValue(), eye.getMinReceptorValue());
+			float avgOuterEntropy = getReceptorOuterEntropy(eyeReceptorValues, receptorIndex, eye.getMaxReceptorValue(), eye.getMinReceptorValue());
 			result[receptorIndex] = avgOuterEntropy * (1-avgInnerEntropy);
 		}		
 		return result;
 	}
 
-	private static float getReceptorOuterEntropy(Map<Character, List<float[]>> eyeReceptorValues, int receptorIndex) {
+	private static float getReceptorOuterEntropy(Map<Character, List<float[]>> eyeReceptorValues, int receptorIndex, float max, float min) {
 		float sumOuterEntropy = 0;
 		for (int i=0; i< characterImagesCount; i++) {
 			float[] values = new float[eyeReceptorValues.size()];
@@ -68,12 +63,12 @@ public class EyeQualityInspector {
 			for (Iterator<Character> it = eyeReceptorValues.keySet().iterator(); it.hasNext(); j++) {
 				values[j] = eyeReceptorValues.get(it.next()).get(i)[receptorIndex];				
 			}
-			sumOuterEntropy += MathEx.correlativeEntropy(0.2f, values);
+			sumOuterEntropy += MathEx.correlativeEntropy((max-min)/5, values);
 		}
         return sumOuterEntropy/characterImagesCount;
 	}
 
-	private static float getReceptorInnerEntropy(Map<Character, List<float[]>> eyeReceptorValues, int receptorIndex) {
+	private static float getReceptorInnerEntropy(Map<Character, List<float[]>> eyeReceptorValues, int receptorIndex, float max, float min) {
 		characterImagesCount = 999;
 		float sumInnerEntropy = 0;
         for (Character character : eyeReceptorValues.keySet()) {
@@ -86,7 +81,7 @@ public class EyeQualityInspector {
             for (ListIterator<float[]> iterator = receptorValues.listIterator(); iterator.hasNext(); i++) {
                 values[i] = iterator.next()[receptorIndex];
             }
-            sumInnerEntropy += MathEx.correlativeEntropy(0.2f, values);
+            sumInnerEntropy += MathEx.correlativeEntropy((max-min)/5, values);
         }
         return sumInnerEntropy/eyeReceptorValues.size();
 	}

@@ -20,4 +20,16 @@ public interface Eye extends Serializable {
 	 * @return number of eye receptors
 	 */
 	public int getReceptorsCount();
+
+    /**
+     * get maximum possible value of the eye receptor
+     * @return float value
+     */
+    public float getMaxReceptorValue();
+
+    /**
+     * get minimum possible value of the eye receptor
+     * @return float value
+     */
+    public float getMinReceptorValue();
 }

@@ -2,7 +2,6 @@ package ee.ttu.ocr.teaching;
 
 import ee.ttu.ocr.Cluster;
 import ee.ttu.ocr.ImageClusterer;
-import ee.ttu.ocr.demo.DebugFrame;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,7 +21,6 @@ public class OCRTeachingCourse {
 	
 	private static final String IMAGE_PATH = "training_data/";
 	private static final String IMAGE_FILE_SUFFIX = ".png";
-	private static final String BIG_IMAGE_FILE_SUFFIX = "_big"+IMAGE_FILE_SUFFIX;
 
 	private static final int IMAGE_WIDTH = 200;
 	private static final int IMAGE_HEIGHT = 200;
@@ -69,7 +67,7 @@ public class OCRTeachingCourse {
 		List<BufferedImage> images = new ArrayList<BufferedImage>();
 
         // Generate images from fonts
-        /*for (String font : fonts) {
+        for (String font : fonts) {
             for (int fontSize : fontSizes) {
                 for (int fontStyle : fontStyles) {
                     BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_3BYTE_BGR);
@@ -83,18 +81,11 @@ public class OCRTeachingCourse {
                     image.flush();
                 }
             }
-        }*/
+        }
 		
         // Get images from files        
         try {
             File f = new File(IMAGE_PATH + alphabet[currentCharacterIndex] + IMAGE_FILE_SUFFIX);
-            for (ImageClusterer clusterer = new ImageClusterer(ImageIO.read(f)); clusterer.hasMoreClusters();) {
-                Cluster cluster = clusterer.nextCluster();
-                if (!cluster.isLineBreak() && !cluster.isSpace()) {
-                    images.add(cluster.getImage());
-                }
-            }
-            f = new File(IMAGE_PATH + alphabet[currentCharacterIndex] + BIG_IMAGE_FILE_SUFFIX);
             for (ImageClusterer clusterer = new ImageClusterer(ImageIO.read(f)); clusterer.hasMoreClusters();) {
                 Cluster cluster = clusterer.nextCluster();
                 if (!cluster.isLineBreak() && !cluster.isSpace()) {

@@ -1,9 +1,8 @@
 package ee.ttu.ocr;
 
-import java.io.*;
-import java.net.URL;
-
 import ee.ttu.ann.NeuralNetwork;
+
+import java.io.*;
 
 public class OCRSerializer {
 
@@ -20,14 +19,11 @@ public class OCRSerializer {
 	}
 
     public OCRSerializer() {
-        URL url =  ClassLoader.getSystemResource(CLASSPATH_RESOURCE_NAME);
-        file = new File(url.getFile());
     }
 
     public void write() throws IOException {
-			ObjectOutputStream out = null;
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
 			try {
-				out = new ObjectOutputStream(new FileOutputStream(file));
 				out.writeObject(alphabet);
 				out.writeObject(eye);
 				out.writeObject(network);				
@@ -43,10 +39,15 @@ public class OCRSerializer {
 			}						
 	}
 	
-	public void read() throws IOException {		
-		ObjectInputStream in = null;
-		try {
-			in = new ObjectInputStream(new FileInputStream(file));
+	public void read() throws IOException {
+        ObjectInputStream in;
+        if (file == null) {
+            in = new ObjectInputStream(getClass().getResourceAsStream(CLASSPATH_RESOURCE_NAME));
+        }
+        else {
+            in = new ObjectInputStream(new FileInputStream(file));
+        }
+        try {
 			try {
 				alphabet = (char[])in.readObject();
 				eye = (Eye)in.readObject();

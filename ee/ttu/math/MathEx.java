@@ -18,7 +18,7 @@ public class MathEx {
 		int result = 0;
 		for (int i=0; i<values.length; i++) {
 			for (int j=i+1; j<values.length; j++) {
-				if (java.lang.Math.abs(values[i]-values[j]) < distance) {
+				if (Math.abs(values[i]-values[j]) < distance) {
 					result++;
 				}
 			}

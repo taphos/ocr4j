@@ -31,8 +31,14 @@ public class BackPropagationLearningNeuron extends Neuron {
 			return;
         for (Neuron.Node node : inputNodes) {
             BackPropagationLearningNeuron nodeInputNeuron = (BackPropagationLearningNeuron)node.getInputNeuron();
-			// todo: this is a dirty hack! remove it!
-			float tmp = activationFunction.calculateDerivative(cachedOutput);           
+            // when learning process is very unsmooth
+            // output can become the oposite from the required value,
+            // this causes derivative value to become zero.
+            // Learning process stucks.
+            // We do not allow the derivative value to be less than 0.1
+            // this is a dirty workaround.
+            // todo: find a better solution!
+            float tmp = activationFunction.calculateDerivative(cachedOutput);
             if (tmp < 0.1) tmp = 0.1f;
 			float errorInput = errorOutput*tmp;
 			nodeInputNeuron.increaseError(errorInput*node.getWeight());

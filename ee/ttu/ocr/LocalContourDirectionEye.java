@@ -142,8 +142,16 @@ public class LocalContourDirectionEye implements Eye {
 	public int getReceptorsCount() {
 		return xSquares*ySquares*RECEPTORS_PER_SQUARE;
 	}
-	
-	private class Cell {
+
+    public float getMaxReceptorValue() {
+        return 1;
+    }
+
+    public float getMinReceptorValue() {
+        return -1;
+    }
+
+    private class Cell {
 		private float directionFeature1;
 		private float directionFeature2;
 		private float density;

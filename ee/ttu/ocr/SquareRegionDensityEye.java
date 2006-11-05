@@ -65,4 +65,12 @@ public class SquareRegionDensityEye implements Eye {
 	public int getReceptorsCount() {
 		return xSquares*ySquares;
 	}
+
+    public float getMaxReceptorValue() {
+        return 1;
+    }
+
+    public float getMinReceptorValue() {
+        return 0;
+    }
 }

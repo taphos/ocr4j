@@ -1,19 +1,15 @@
 package ee.ttu.ocr.demo;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-import ee.ttu.math.BipolarSigmoidFunction;
-import ee.ttu.ann.learning.BackPropagationLearningNetwork;
 import ee.ttu.ann.learning.LearningNeuralNetwork;
-import ee.ttu.ann.NeuralNetwork;
-import ee.ttu.ocr.OCRSerializer;
-import ee.ttu.ocr.RandomReceptorEye;
 import ee.ttu.ocr.Eye;
+import ee.ttu.ocr.OCRSerializer;
 import ee.ttu.ocr.teaching.OCRTeacher;
 import ee.ttu.ocr.teaching.OCRTeachingCourse;
 import ee.ttu.ocr.teaching.OCRTeachingException;
 import ee.ttu.ocr.teaching.Statistics;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class Teach {		
 
@@ -25,8 +21,8 @@ public class Teach {
 		
 		/*System.out.println("Initializing eye");
 		//LocalContourDirectionEye eye = new LocalContourDirectionEye(3, 9, 0f);
-		RandomReceptorEye eye = new RandomReceptorEye(2000);
-        eye.optimize(course, 0.41f);
+		RandomReceptorEye eye = new RandomReceptorEye(1000);
+        eye.optimize(course, 0.4f);
 
 		System.out.println("Number of eye receptors: "+eye.getReceptorsCount());
 		

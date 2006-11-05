@@ -1,15 +1,14 @@
 package ee.ttu.ocr.demo;
 
 import ee.ttu.ocr.OCR;
-import ee.ttu.ocr.OCRSerializer;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.MouseInputListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -75,8 +74,8 @@ public class DemoApplet extends JApplet {
 		Graphics2D backgroundGraphics;
 		int lastX,lastY;
 		boolean drawing;
-		int width = 600;
-	   	int height = 300;
+		int width = 500;
+	   	int height = 200;
 
 		public DrawingPanel() {
 		   	this.setSize(width,height);
@@ -85,7 +84,7 @@ public class DemoApplet extends JApplet {
 		   	backgroundGraphics.setBackground(Color.WHITE);
 		   	backgroundGraphics.setColor(Color.BLACK);
 		   	backgroundGraphics.clearRect(0, 0, width, height);
-		   	backgroundGraphics.setStroke(new BasicStroke(10f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+		   	backgroundGraphics.setStroke(new BasicStroke(5f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
 		   	this.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		   	this.setPreferredSize(new Dimension(width,height));
 		   	this.setMaximumSize(new Dimension(width,height));
