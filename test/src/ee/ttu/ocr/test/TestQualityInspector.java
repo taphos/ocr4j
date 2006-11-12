@@ -1,4 +1,4 @@
-package ee.ttu.ocr.demo;
+package ee.ttu.ocr.test;
 
 import ee.ttu.ocr.RandomReceptorEye;
 import ee.ttu.ocr.teaching.EyeQualityInspector;

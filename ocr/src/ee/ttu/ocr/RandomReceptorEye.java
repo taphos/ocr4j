@@ -23,7 +23,7 @@ import java.util.Random;
  * @author Filipp Keks
  */
 public class RandomReceptorEye implements Eye {
-    public static final long serialVersionUID = -5536070421184600090L;    
+    public static final long serialVersionUID = 8716502876866696187L;    
 
     private static final int DOTTS_PER_RECEPTOR = 100;
 	private static final float MAX_LENGTH_OF_RECEPTOR = 0.4f;
@@ -62,11 +62,11 @@ public class RandomReceptorEye implements Eye {
 	}
 
     public float getMaxReceptorValue() {
-        return 1;
+        return 0.5f;
     }
 
     public float getMinReceptorValue() {
-        return -1;
+        return -0.5f;
     }
 
     /**
@@ -89,15 +89,9 @@ public class RandomReceptorEye implements Eye {
 			
 	public float[] lookAt(BufferedImage image) {
 		float[] result = new float[receptors.size()];
-        float sumValue = 0;
         int i=0;
 		for (ListIterator<LineReceptor> it = receptors.listIterator(); it.hasNext();i++) {
-			result[i] = it.next().getReceptorValue(image);
-            sumValue += result[i];
-        }
-        // divide with average value to make result independent from line width
-        for (i=0; i<result.length; i++) {
-            result[i] = result[i]*result.length/sumValue - 1;
+			result[i] = it.next().getReceptorValue(image) - 0.5f;
         }
         return result;
 	}

@@ -1,4 +1,4 @@
-package ee.ttu.ocr.demo;
+package ee.ttu.ocr.test;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

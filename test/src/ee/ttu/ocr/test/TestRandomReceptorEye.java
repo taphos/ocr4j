@@ -1,4 +1,4 @@
-package ee.ttu.ocr.demo;
+package ee.ttu.ocr.test;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,9 +17,9 @@ public class TestRandomReceptorEye {
 		DebugFrame debugFrame = new DebugFrame();
 		
 		OCRTeachingCourse course = new OCRTeachingCourse();
-		RandomReceptorEye eye = new RandomReceptorEye(500);
+		RandomReceptorEye eye = new RandomReceptorEye(250);
 		System.out.println("optimizing");
-		eye.optimize(course, 0.4f);
+		eye.optimize(course, 0.2f);
 		System.out.println(eye.getReceptorsCount());
 		
 /*		BufferedImage image = new BufferedImage(280, 150, BufferedImage.TYPE_3BYTE_BGR);

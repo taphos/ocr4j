@@ -1,17 +1,20 @@
-package ee.ttu.ocr.demo;
+package ee.ttu.ocr.tools;
 
 import ee.ttu.ann.learning.LearningNeuralNetwork;
+import ee.ttu.ann.learning.BackPropagationLearningNetwork;
 import ee.ttu.ocr.Eye;
 import ee.ttu.ocr.OCRSerializer;
+import ee.ttu.ocr.RandomReceptorEye;
 import ee.ttu.ocr.teaching.OCRTeacher;
 import ee.ttu.ocr.teaching.OCRTeachingCourse;
 import ee.ttu.ocr.teaching.OCRTeachingException;
 import ee.ttu.ocr.teaching.Statistics;
+import ee.ttu.math.BipolarSigmoidFunction;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-public class Teach {		
+public class Trainer {
 
 	public static void main(String[] args) throws IOException, OCRTeachingException {						
 		
@@ -19,24 +22,24 @@ public class Teach {
 		OCRTeachingCourse course = new OCRTeachingCourse();
 		final char[] alphabet = course.getAlphabet();
 		
-		/*System.out.println("Initializing eye");
+		System.out.println("Initializing eye");
 		//LocalContourDirectionEye eye = new LocalContourDirectionEye(3, 9, 0f);
-		RandomReceptorEye eye = new RandomReceptorEye(1000);
-        eye.optimize(course, 0.4f);
+		RandomReceptorEye eye = new RandomReceptorEye(250);
+        eye.optimize(course, 0.2f);
 
 		System.out.println("Number of eye receptors: "+eye.getReceptorsCount());
 		
 		System.out.println("Creating neural network");
 		BackPropagationLearningNetwork network = new BackPropagationLearningNetwork(new BipolarSigmoidFunction(1), eye.getReceptorsCount());
-		network.addNetworkLayer(90);
-        network.addNetworkLayer(60);
-        network.addNetworkLayer(course.getAlphabetSize());*/
+		network.addNetworkLayer(100);
+        network.addNetworkLayer(50);
+        network.addNetworkLayer(course.getAlphabetSize());
 
-        OCRSerializer serializer2 = new OCRSerializer("random_receptor_bipolar_sigmoid.ann");
+        /*OCRSerializer serializer2 = new OCRSerializer("random_receptor_bipolar_sigmoid.ann");
         serializer2.read();
         LearningNeuralNetwork network = (LearningNeuralNetwork)serializer2.getNetwork();
         Eye eye = serializer2.getEye();
-        System.out.println("Number of eye receptors: "+eye.getReceptorsCount());
+        System.out.println("Number of eye receptors: "+eye.getReceptorsCount());*/
 
 
         OCRTeacher teacher = new OCRTeacher(course, eye);

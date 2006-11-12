@@ -1,4 +1,4 @@
-package ee.ttu.ocr.demo;
+package ee.ttu.ocr.test;
 
 import java.awt.Color;
 import java.awt.Font;
