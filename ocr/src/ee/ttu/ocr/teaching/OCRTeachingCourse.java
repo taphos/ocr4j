@@ -25,7 +25,7 @@ public class OCRTeachingCourse {
 	private static final int IMAGE_WIDTH = 200;
 	private static final int IMAGE_HEIGHT = 200;
 	private static final String[] fonts = {"Tahoma", "TimesRoman"};
-	private static final int[] fontSizes = {150, 30, 12};		
+	private static final int[] fontSizes = {150, 30, 13, 12};
 	private static final int[] fontStyles = {Font.PLAIN, Font.ITALIC};
 
     private int currentCharacterIndex;
