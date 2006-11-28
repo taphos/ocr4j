@@ -1,15 +1,13 @@
 package ee.ttu.ocr.tools;
 
-import ee.ttu.ann.learning.LearningNeuralNetwork;
 import ee.ttu.ann.learning.BackPropagationLearningNetwork;
-import ee.ttu.ocr.Eye;
+import ee.ttu.math.BipolarSigmoidFunction;
 import ee.ttu.ocr.OCRSerializer;
 import ee.ttu.ocr.RandomReceptorEye;
 import ee.ttu.ocr.teaching.OCRTeacher;
 import ee.ttu.ocr.teaching.OCRTeachingCourse;
 import ee.ttu.ocr.teaching.OCRTeachingException;
 import ee.ttu.ocr.teaching.Statistics;
-import ee.ttu.math.BipolarSigmoidFunction;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,15 +22,15 @@ public class Trainer {
 		
 		System.out.println("Initializing eye");
 		//LocalContourDirectionEye eye = new LocalContourDirectionEye(3, 9, 0f);
-		RandomReceptorEye eye = new RandomReceptorEye(250);
-        eye.optimize(course, 0.2f);
+		RandomReceptorEye eye = new RandomReceptorEye(400);
+        eye.optimize(course, 0.39f);
 
 		System.out.println("Number of eye receptors: "+eye.getReceptorsCount());
 		
 		System.out.println("Creating neural network");
-		BackPropagationLearningNetwork network = new BackPropagationLearningNetwork(new BipolarSigmoidFunction(1), eye.getReceptorsCount());
+		BackPropagationLearningNetwork network = new BackPropagationLearningNetwork(new BipolarSigmoidFunction(2), eye.getReceptorsCount());
 		network.addNetworkLayer(100);
-        network.addNetworkLayer(50);
+        network.addNetworkLayer(60);
         network.addNetworkLayer(course.getAlphabetSize());
 
         /*OCRSerializer serializer2 = new OCRSerializer("random_receptor_bipolar_sigmoid.ann");
@@ -86,7 +84,7 @@ public class Trainer {
 		teacher.examine(network, statistics);						
 		
 		System.out.println("Saving network to file");
-		OCRSerializer serializer = new OCRSerializer("random_receptor_bipolar_sigmoid.ann");
+		OCRSerializer serializer = new OCRSerializer("OCRBrain.ann");
 		serializer.setAlphabet(alphabet);
 		serializer.setEye(eye);
 		serializer.setNetwork(network);
